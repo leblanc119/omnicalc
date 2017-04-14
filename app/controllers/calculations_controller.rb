@@ -77,7 +77,8 @@ class CalculationsController < ApplicationController
     @range = @numbers.max-@numbers.min
 
     if @numbers.count.even?
-      @median=@numbers.sum/@numbers.count
+      @index=@numbers.count/2
+      @median=(@numbers.sort[@index]+@numbers.sort[@index-1])/2
     else
       @index=@numbers.count/2
       @median=@numbers.sort[@index]
