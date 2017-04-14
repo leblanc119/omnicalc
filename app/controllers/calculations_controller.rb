@@ -40,25 +40,12 @@ class CalculationsController < ApplicationController
     @starting = Chronic.parse(params[:starting_time])
     @ending = Chronic.parse(params[:ending_time])
 
-    # ================================================================================
-    # Your code goes below.
-    # The start time is in the Time @starting.
-    # The end time is in the Time @ending.
-    # Note: Ruby stores Times in terms of seconds since Jan 1, 1970.
-    #   So if you subtract one time from another, you will get an integer
-    #   number of seconds as a result.
-    # ================================================================================
-
-    @seconds = "Replace this string with your answer."
-    @minutes = "Replace this string with your answer."
-    @hours = "Replace this string with your answer."
-    @days = "Replace this string with your answer."
-    @weeks = "Replace this string with your answer."
-    @years = "Replace this string with your answer."
-
-    # ================================================================================
-    # Your code goes above.
-    # ================================================================================
+    @seconds = @ending-@starting
+    @minutes = @seconds/60
+    @hours = @minutes/60
+    @days = @hours/24
+    @weeks = @days/7
+    @years = @weeks/52
 
     render("time_between.html.erb")
   end
@@ -71,27 +58,48 @@ class CalculationsController < ApplicationController
     # The numbers the user input are in the array @numbers.
     # ================================================================================
 
-    @sorted_numbers = "Replace this string with your answer."
+    #@sorted_array=[]
+    #@temp_array=@numbers
 
-    @count = "Replace this string with your answer."
+    #@temp_array.each do |next_num|
+    #  @sorted_array.push(@temp_array.min)
+    #  @temp_array=@temp_array-[@temp_array.min]
+    #end
 
-    @minimum = "Replace this string with your answer."
+    @sorted_numbers = @numbers.sort
 
-    @maximum = "Replace this string with your answer."
+    @count = @numbers.count
 
-    @range = "Replace this string with your answer."
+    @minimum = @numbers.min
 
-    @median = "Replace this string with your answer."
+    @maximum = @numbers.max
 
-    @sum = "Replace this string with your answer."
+    @range = @numbers.max-@numbers.min
 
-    @mean = "Replace this string with your answer."
+    if @numbers.count.even?
+      @median=@numbers.sum/@numbers.count
+    else
+      @index=@numbers.count/2
+      @median=@numbers.sort[@index]
+    end
 
-    @variance = "Replace this string with your answer."
+    @median = @median
 
-    @standard_deviation = "Replace this string with your answer."
+    @sum = @numbers.sum
 
-    @mode = "Replace this string with your answer."
+    @mean = @numbers.sum/@numbers.count
+
+    @var_sum=0
+    @numbers.each do |diff|
+      @var_sum=@var_sum+(@mean-diff)**2
+    end
+    @variance=@var_sum/@numbers.count
+
+    @variance = @variance
+
+    @standard_deviation = @variance**(1.0/2)
+
+    @mode = @numbers#.mode
 
     # ================================================================================
     # Your code goes above.
