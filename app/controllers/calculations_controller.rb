@@ -3,25 +3,23 @@ class CalculationsController < ApplicationController
   def word_count
     @text = params[:user_text]
     @special_word = params[:user_word]
+    @sum=0
 
-    # ================================================================================
-    # Your code goes below.
-    # The text the user input is in the string @text.
-    # The special word the user input is in the string @special_word.
-    # ================================================================================
+    @text.gsub(/[^a-z0-9\s]/i, "")
+    
+    @text.split.each do |special_count|
+      if @special_word.upcase == special_count.upcase
+        @sum=@sum+1
+      end
+    end
 
+    @word_count = @text.split.count
 
-    @word_count = "Replace this string with your answer."
+    @character_count_with_spaces = @text.length
 
-    @character_count_with_spaces = "Replace this string with your answer."
+    @character_count_without_spaces = @text.gsub(" ","").length
 
-    @character_count_without_spaces = "Replace this string with your answer."
-
-    @occurrences = "Replace this string with your answer."
-
-    # ================================================================================
-    # Your code goes above.
-    # ================================================================================
+    @occurrences = @sum
 
     render("word_count.html.erb")
   end
