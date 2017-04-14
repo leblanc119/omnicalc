@@ -6,7 +6,7 @@ class CalculationsController < ApplicationController
     @sum=0
 
     @text.gsub(/[^a-z0-9\s]/i, "")
-    
+
     @text.split.each do |special_count|
       if @special_word.upcase == special_count.upcase
         @sum=@sum+1
@@ -29,18 +29,9 @@ class CalculationsController < ApplicationController
     @years = params[:number_of_years].to_i
     @principal = params[:principal_value].to_f
 
-    # ================================================================================
-    # Your code goes below.
-    # The annual percentage rate the user input is in the decimal @apr.
-    # The number of years the user input is in the integer @years.
-    # The principal value the user input is in the decimal @principal.
-    # ================================================================================
-
-    @monthly_payment = "Replace this string with your answer."
-
-    # ================================================================================
-    # Your code goes above.
-    # ================================================================================
+    monthly_rate=(@apr/100)/12
+    num_payments=@years*12
+    @monthly_payment = ((monthly_rate)/(1-(1+monthly_rate)**(num_payments*-1)))*@principal
 
     render("loan_payment.html.erb")
   end
