@@ -5,10 +5,11 @@ class CalculationsController < ApplicationController
     @special_word = params[:user_word]
     @sum=0
 
-    @text.gsub(/[^a-z0-9\s]/i, "")
+    @text2=@text.gsub(/[^a-z0-9\s]/i, "")
+    @word=@special_word.gsub(/[^a-z0-9\s]/i, "")
 
-    @text.split.each do |special_count|
-      if @special_word.upcase == special_count.upcase
+    @text2.split.each do |special_count|
+      if @word.upcase == special_count.upcase
         @sum=@sum+1
       end
     end
